@@ -41,6 +41,7 @@ Este repositório é a **entrega da disciplina de IA**: explica a funcionalidade
 | 02 | IA generativa no fluxo da aplicação, por API ou local | seção [IA generativa no fluxo](#-02--ia-generativa-no-fluxo-da-aplicação); código no pacote [`ia`](https://github.com/Global-Solution-Direito-Facil/gs2-Java-Advanced/tree/main/src/main/java/br/com/fiap/direitofacil/ia) da API Java |
 | 03 | Aprofundamento: RAG básico e/ou ML/DL/Visão, com justificativa | seção [Aprofundamento](#-03--aprofundamento-técnico-rag-básico--visão-computacional): **RAG básico** (passo a passo) e **Visão Computacional** com modelo pré-treinado (leitura do laudo e da receita) |
 | 04 | Dados e arquitetura: fontes, preparação e fluxo entre aplicação, modelos e serviços | seção 04 (Dados e arquitetura), [`docs/arquitetura.md`](docs/arquitetura.md) (diagramas) e [`docs/dados.md`](docs/dados.md) |
+| 05 | Avaliação: entradas representativas, situações de falha, métricas | seção [Avaliação dos resultados](#-05--avaliação-dos-resultados) e [`Testes/avaliacao.md`](Testes/avaliacao.md) |
 | 06 | Organização e uso responsável: código, instruções, credenciais, dados pessoais, limitações | seções [Código-fonte da IA](#-código-fonte-da-ia-no-repositório-java) (na API Java), [Como executar](#-como-executar) e [Uso responsável](#-06--uso-responsável-e-limitações), e [`docs/limitacoes.md`](docs/limitacoes.md) |
 
 ## 📚 Documentação complementar (pasta `docs/`)
@@ -164,6 +165,29 @@ flowchart LR
 
 ---
 
+# 📊 05 — Avaliação dos resultados
+
+A IA foi testada em **19/11/2026 pelo app Mobile**, na solução publicada (API .NET → RabbitMQ → API Java → Gemini), com documentos **fictícios** e a conta de demonstração. **Cada caso tem um print** como evidência. Casos de teste, resultados, prints, critérios e a análise estão em [`Testes/avaliacao.md`](Testes/avaliacao.md).
+
+| Função | Entradas representativas | Situações de falha | Total |
+|---|---|---|---|
+| Leitura da receita | 1: receita impressa com três genéricos | 2: nomes comerciais sem princípio ativo escrito; laudo enviado no lugar da receita | 3 |
+| Leitura do laudo | — | 4: conta de luz, página em branco e ruído enviados como laudo; laudo sem data | 4 |
+| Passo a passo com RAG | 1: Passe Livre Interestadual – PcD | — | 1 |
+| **Total** | **2** | **6** | **8** |
+
+**8 de 8 casos com o resultado esperado.**
+
+| Função | Principais resultados |
+|---|---|
+| Leitura da receita | 6 de 6 remédios lidos com a dosagem certa; **0 princípios ativos inventados** nos nomes comerciais; laudo enviado como receita recusado |
+| Leitura do laudo | 4 de 4 documentos inválidos recusados ("Não deu para ler"); **0 falsas aceitações**. No laudo sem data, a IA lê, mas a conferência do Java recusa: é a defesa em duas camadas |
+| Passo a passo com RAG | 5 passos curtos, começando com verbo, com a fonte do trecho (Lei 8.899/1994) e o aviso de que o texto foi explicado por IA |
+
+**Como interpretar**: a amostra é pequena e fictícia, então os resultados mostram o comportamento esperado, não uma taxa de acerto para documentos reais. A leitura de um laudo válido e os direitos fora da base do RAG não têm evidência nesta amostra. As limitações da própria IA estão em [`docs/limitacoes.md`](docs/limitacoes.md).
+
+---
+
 # 🔒 06 — Uso responsável e limitações
 
 - **Credenciais**: nenhuma neste repositório nem na API. A chave do Gemini vem só da variável de ambiente `GEMINI_API_KEY`; na API ela é opcional (sem ela tudo funciona menos a IA).
@@ -225,6 +249,10 @@ DireitoFacil-IA/
 │   ├── arquitetura.md           diagramas: visão geral, laudo, RAG, receita; classes da API por função
 │   ├── dados.md                 fontes e preparação dos dados
 │   └── limitacoes.md            limitações e uso responsável
+└── Testes/
+    ├── avaliacao.md             os 8 casos de teste, resultados, critérios e análise
+    ├── dados/                   arquivos de entrada: laudos/, receitas/, nao-documentos/
+    └── prints/                  evidência de cada caso: prints do app Mobile e da API publicada
 ```
 
 Código da IA: pacote `ia` da [API Java](https://github.com/Global-Solution-Direito-Facil/gs2-Java-Advanced).
