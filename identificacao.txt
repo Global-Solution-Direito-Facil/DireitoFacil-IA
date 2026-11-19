@@ -1,0 +1,17 @@
+Global Solution 2026/2 - CitizenTech - Direito Facil
+Disciplina: Disruptive Architectures: IoT, IoB & Generative IA
+Turma: 2TDSPG
+
+Integrantes (RM - Nome completo - Turma):
+565554 - Alexander Dennis Isidro Mamani - 2TDSPG
+564093 - Gabriel Neris Losano - 2TDSPG
+565594 - Joao Vitor Biribilli Ravelli - 2TDSPG
+563748 - Kelson Zhang - 2TDSPG
+561378 - Pietro Paranhos Wilhelm - 2TDSPG
+
+Repositorio no GitHub :
+https://github.com/Global-Solution-Direito-Facil/DireitoFacil-IA
+
+Repositorios relacionados:
+API Java : https://github.com/Global-Solution-Direito-Facil/gs2-Java-Advanced
+Banco de dados: https://github.com/Global-Solution-Direito-Facil/DireitoFacil-DB
